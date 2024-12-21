@@ -4,8 +4,9 @@ This is a static site hosted through github pages. The static artifacts are gene
 
 The build process puts the static artifacts into the out directory. Github workflow actions compile the app into a /out directory and hosts the website with it. Do not check in /out.
 
-to host locally, from root directory run:  
-"npx serve out" 
+First time only!
+`npm install`
 
-For development use
-npm run dev
+then for local development run `npx run dev` from the root directory.
+
+To host locally - `npm run build` then `npx serve out`
