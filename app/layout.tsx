@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +25,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} toolbar`}>
+        <header>
+          <nav className="bg-blue-500 text-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between items-center h-16">
+                <div className="flex-shrink-0">
+                  <Link href="/" className="text-2xl font-bold">MyLogo</Link>
+                </div>
+                <div className="hidden md:flex space-x-4">
+                  <Link href="" className="hover:text-blue-300">Home</Link>
+                  <Link href="/about" className="hover:text-blue-300">About</Link>
+                  <Link href="/projects" className="hover:text-blue-300">Projects</Link>
+                  <Link href="/contact" className="hover:text-blue-300">Contact</Link>
+                </div>
+                <button className="md:hidden text-white focus:outline-none">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <main>{children} </main>
       </body>
     </html>
   );
