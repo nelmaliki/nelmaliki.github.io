@@ -99,3 +99,30 @@ export default function Home() {
     </div>
   );
 }
+<<<<<<< Updated upstream
+=======
+
+function LandingPageDisplay(): React.ReactElement {
+  return <div className="text-amber-50 text-4xl">
+    <span >
+      Hi, I&#39;m
+    </span>
+    &nbsp;
+    <strong className="text-[#99DDC8]">
+      Nour Schumaliki.
+    </strong>
+    <br />
+    <span className="text-3xl">
+      Currently engineering solutions at
+    </span>
+    &nbsp;
+    <strong className="text-[#99DDC8] text-3xl">
+      Ab Initio.
+    </strong>
+    <br/>
+    <p className="text-3xl">
+      This site was built by me to show off my side projects as I experiment with different technologies.
+    </p>
+  </div>
+}
+>>>>>>> Stashed changes

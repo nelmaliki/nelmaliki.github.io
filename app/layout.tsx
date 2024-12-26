@@ -24,10 +24,38 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+<<<<<<< Updated upstream
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+=======
+      <body className={`${geistSans.variable} ${geistMono.variable} toolbar`}>
+        <NavBar />
+        <main className="bg-DavyGrey min-h-screen text-amber-50">
+          {children}
+          <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center flex-1 absolute bottom-3 w-full">
+            <a
+              className="flex items-center gap-2 hover:text-NaplesYellow"
+              href="https://www.linkedin.com/in/nour-elmaliki-527637195/"
+              target="_blank"
+              rel="noopener noreferrer external"
+            >
+              <Image src="/icons/linkedinLogo.svg" alt="Icon" width={32} height={32} />
+              LinkedIn
+            </a>
+            <a
+              className="flex items-center gap-2 hover:text-NaplesYellow"
+              href="https://github.com/nelmaliki"
+              target="_blank"
+              rel="noopener noreferrer external"
+            >
+              <Image src="/icons/githubLogo.svg" alt="Icon" width={32} height={32} />
+              Github
+            </a>
+          </footer>
+        </main>
+>>>>>>> Stashed changes
       </body>
     </html>
   );
