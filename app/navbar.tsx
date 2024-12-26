@@ -16,10 +16,6 @@ const navBarEntries: NavBarEntry[] = [
     {
         displayName: "Projects",
         route: "/projects/"
-    },
-    {
-        displayName: "Contact",
-        route: "/contact/"
     }
 ];
 
