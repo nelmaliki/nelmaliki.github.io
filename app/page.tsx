@@ -28,8 +28,6 @@ export default function Home() {
     </div>
   );
 }
-<<<<<<< Updated upstream
-=======
 
 function LandingPageDisplay(): React.ReactElement {
   return <div className="text-amber-50 text-4xl">
@@ -37,7 +35,7 @@ function LandingPageDisplay(): React.ReactElement {
       Hi, I&#39;m
     </span>
     &nbsp;
-    <strong className="text-[#99DDC8]">
+    <strong className="text-TiffanyBlue">
       Nour Schumaliki.
     </strong>
     <br />
@@ -45,7 +43,7 @@ function LandingPageDisplay(): React.ReactElement {
       Currently engineering solutions at
     </span>
     &nbsp;
-    <strong className="text-[#99DDC8] text-3xl">
+    <strong className="text-TiffanyBlue text-3xl">
       Ab Initio.
     </strong>
     <br/>
@@ -54,4 +52,3 @@ function LandingPageDisplay(): React.ReactElement {
     </p>
   </div>
 }
->>>>>>> Stashed changes

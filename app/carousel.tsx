@@ -94,14 +94,14 @@ export function Carousel(props: CarouselProps): React.ReactElement {
             {/* Navigation Controls */}
             <button
                 onClick={handlePrev}
-                className="absolute top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-2 h-full rounded opacity-30 hover:opacity-50 hover:text-[#F2CD60]">
+                className="absolute top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-2 h-full rounded opacity-30 hover:opacity-50 hover:text-NaplesYellow">
                 <svg xmlns="http://www.w3.org/2000/svg" onClick={handlePrev} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>
             </button>
             <button
                 onClick={handleNext}
-                className="absolute top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-2 h-full rounded opacity-30 hover:opacity-50 hover:text-[#F2CD60] right-0">
+                className="absolute top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-2 h-full rounded opacity-30 hover:opacity-50 hover:text-NaplesYellow right-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
