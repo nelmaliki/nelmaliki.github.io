@@ -24,7 +24,7 @@ export default function RootLayout({
         <NavBar />
         <main className="bg-DavyGrey min-h-screen text-amber-50">
           {children}
-          <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center flex-1 absolute bottom-3 w-full">
+          <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center flex-1 bottom-3 w-full">
             <a
               className="flex items-center gap-2 hover:text-NaplesYellow"
               href="https://www.linkedin.com/in/nour-elmaliki-527637195/"
