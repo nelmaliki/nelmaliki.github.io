@@ -15,7 +15,7 @@ const navBarEntries: NavBarEntry[] = [
     },
     {
         displayName: "Projects",
-        route: "/projects/"
+        route: "/projects"
     }
 ];
 
@@ -47,8 +47,9 @@ function NavBarLink(props: { navBarEntry: NavBarEntry }): React.ReactElement {
         return <Link href={navBarEntry.route} className="hover:text-NaplesYellow">{navBarEntry.displayName}</Link>;
     }
 }
-
+ 
 function isSelected(currentRoute: string, navBarEntry: NavBarEntry): boolean {
-    //todo will probably have to handle more edge cases when routing isn't a pure child page
-    return navBarEntry.route === currentRoute;
+    // Remove trailing whitespace and slashes from currentRoute
+    const sanitizedRoute = currentRoute.replace(/\/+$/, '').trim();
+    return navBarEntry.route === sanitizedRoute;
 }
