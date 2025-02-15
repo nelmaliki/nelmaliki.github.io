@@ -11,7 +11,7 @@ interface NavBarEntry {
 const navBarEntries: NavBarEntry[] = [
     {
         displayName: "Home",
-        route: "/"
+        route: ""
     },
     {
         displayName: "Projects",
