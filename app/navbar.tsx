@@ -11,7 +11,7 @@ interface NavBarEntry {
 const navBarEntries: NavBarEntry[] = [
     {
         displayName: "Home",
-        route: ""
+        route: "/"
     },
     {
         displayName: "Projects",
@@ -49,7 +49,8 @@ function NavBarLink(props: { navBarEntry: NavBarEntry }): React.ReactElement {
 }
  
 function isSelected(currentRoute: string, navBarEntry: NavBarEntry): boolean {
-    // Remove trailing whitespace and slashes from currentRoute
-    const sanitizedRoute = currentRoute.replace(/\/+$/, '').trim();
-    return navBarEntry.route === sanitizedRoute;
+    // Remove trailing whitespace and slashes from routes
+    const sanitizedCurrentRoute = currentRoute.replace(/\/+$/, '').trim();
+    const sanitizedRoute = navBarEntry.route.replace(/\/+$/, '').trim();
+    return sanitizedCurrentRoute === sanitizedRoute;
 }
