@@ -16,6 +16,10 @@ const navBarEntries: NavBarEntry[] = [
     {
         displayName: "Projects",
         route: "/projects"
+    },
+    {
+        displayName: "Text IDE",
+        route: "/projects/project1"
     }
 ];
 
