@@ -1,12 +1,12 @@
 'use client'
-import DocumentTextBox from '@/app/components/DocumentTextBox';
+import CombinedDocumentTextBox from '@/app/components/DocumentTextBox';
 import SimpleDocumentTextBox from '@/app/components/SimpleDocumentTextBox';
 import { correctDocumentStreaming } from '@/app/lib/correctDocumentClient';
 import React, { useCallback, useState } from 'react';
 export default function Page() {
     const [inputText, setInputText] = useState(defaultText);
     const [outputText, setOutputText] = useState("Click the button to see edits!");
-    const [scrollState, setScrollState] = useState(0);
+
     const [waiting, setWaiting] = useState(false);
     const [singleEditorMode, setSingleEditorMode] = useState(false);
     const onClick = useCallback(async () => {
@@ -26,17 +26,11 @@ export default function Page() {
             {singleEditorMode ?
                 <SingleEditorMode inputText={inputText}
                     outputText={outputText}
-                    setInputText={setInputText}
-                    setOutputText={setOutputText}
-                    scrollState={scrollState}
-                    setScrollState={setScrollState} /> :
+                    setInputText={setInputText} /> :
                 <SideBySideComparison
                     inputText={inputText}
                     outputText={outputText}
                     setInputText={setInputText}
-                    setOutputText={setOutputText}
-                    scrollState={scrollState}
-                    setScrollState={setScrollState}
                 />}
         </div>
     );
@@ -48,19 +42,20 @@ function AcceptButton(props: { onClick: () => void, waiting: boolean }): React.R
     return <button className="accept-button bg-Asparagus my-2 mx-2" onClick={onClick}>{buttonText}</button>
 }
 
-function SideBySideComparison(props: { inputText: string, outputText: string, setInputText: (x: string) => void, setOutputText: (x: string) => void, scrollState: number, setScrollState: (x: number) => void }) {
-    const { inputText, outputText, setInputText, setOutputText, scrollState, setScrollState } = { ...props };
+function SideBySideComparison(props: { inputText: string, outputText: string, setInputText: (x: string) => void }) {
+    const { inputText, outputText, setInputText } = { ...props };
+    const [scrollState, setScrollState] = useState(0);
     return (<div className="editor flex justify-evenly flex-1 min-h-[70vh] max-h-20 mt-4">
         <SimpleDocumentTextBox textContent={inputText} scrollValue={scrollState} updateTextContent={setInputText} setScrollValue={setScrollState} editable />
         <div className="divider mx-6" />
-        <SimpleDocumentTextBox textContent={outputText} scrollValue={scrollState} updateTextContent={setOutputText} setScrollValue={setScrollState} />
+        <SimpleDocumentTextBox textContent={outputText} scrollValue={scrollState} updateTextContent={() => { }} setScrollValue={setScrollState} />
     </div>)
 }
 
-function SingleEditorMode(props: { inputText: string, outputText: string, setInputText: (x: string) => void, setOutputText: (x: string) => void, scrollState: number, setScrollState: (x: number) => void }) {
-    const { inputText, outputText, setInputText, setOutputText, scrollState, setScrollState } = { ...props };
+function SingleEditorMode(props: { inputText: string, outputText: string, setInputText: (x: string) => void }) {
+    const { inputText, outputText, setInputText, } = { ...props };
     return (<div className="editor flex justify-evenly flex-1 min-h-[70vh] max-h-20 mt-4">
-        <DocumentTextBox textContent={inputText} scrollValue={scrollState} updateTextContent={setInputText} setScrollValue={setScrollState} editable />
+        <CombinedDocumentTextBox textContent={inputText} correctedTextContent={outputText} updateTextContent={setInputText} />
     </div>)
 }
 

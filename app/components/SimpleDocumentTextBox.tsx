@@ -1,8 +1,16 @@
 import { UIEventHandler, useCallback, useEffect, useRef } from "react";
-import { DocumentTextBoxProps } from "./DocumentTextBox";
 
 
-export default function DocumentTextBox(props: DocumentTextBoxProps): React.ReactElement {
+export interface SimpleDocumentTextBoxProps {
+    textContent: string;
+    updateTextContent: (newContent: string) => void;
+    //this value is ignored on first render which may become an issue later idk
+    scrollValue: number;
+    setScrollValue: (newScrollValue: number) => void;
+    editable?: boolean;
+}
+
+export default function SimpleDocumentTextBox(props: SimpleDocumentTextBoxProps): React.ReactElement {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
