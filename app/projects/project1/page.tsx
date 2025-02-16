@@ -1,5 +1,6 @@
 'use client'
 import DocumentTextBox from '@/app/components/DocumentTextBox';
+import SimpleDocumentTextBox from '@/app/components/SimpleDocumentTextBox';
 import { correctDocumentStreaming } from '@/app/lib/correctDocumentClient';
 import React, { useCallback, useState } from 'react';
 export default function Page() {
@@ -7,6 +8,7 @@ export default function Page() {
     const [outputText, setOutputText] = useState("Click the button to see edits!");
     const [scrollState, setScrollState] = useState(0);
     const [waiting, setWaiting] = useState(false);
+    const [singleEditorMode, setSingleEditorMode] = useState(false);
     const onClick = useCallback(async () => {
         correctDocumentStreaming({
             request: {
@@ -19,12 +21,23 @@ export default function Page() {
         <div className="page-contents mx-6 flex flex-col">
             <div className="toolbar h-10 flex justify-center">
                 <AcceptButton waiting={waiting} onClick={onClick} />
+                <button className="bg-Asparagus my-2 mx-2" onClick={() => { setSingleEditorMode(!singleEditorMode) }}>Switch Mode</button>
             </div>
-            <div className="editor flex justify-evenly flex-1 min-h-[70vh] mt-4">
-                <DocumentTextBox textContent={inputText} scrollValue={scrollState} updateTextContent={setInputText} setScrollValue={setScrollState} editable />
-                <div className="divider mx-6" />
-                <DocumentTextBox textContent={outputText} scrollValue={scrollState} updateTextContent={setOutputText} setScrollValue={setScrollState} />
-            </div>
+            {singleEditorMode ?
+                <SingleEditorMode inputText={inputText}
+                    outputText={outputText}
+                    setInputText={setInputText}
+                    setOutputText={setOutputText}
+                    scrollState={scrollState}
+                    setScrollState={setScrollState} /> :
+                <SideBySideComparison
+                    inputText={inputText}
+                    outputText={outputText}
+                    setInputText={setInputText}
+                    setOutputText={setOutputText}
+                    scrollState={scrollState}
+                    setScrollState={setScrollState}
+                />}
         </div>
     );
 };
@@ -32,9 +45,24 @@ export default function Page() {
 function AcceptButton(props: { onClick: () => void, waiting: boolean }): React.ReactElement {
     const onClick = props.waiting ? undefined : props.onClick;
     const buttonText = props.waiting ? "Loading..." : "Click Me";
-    return <button className="accept-button bg-Asparagus my-2" onClick={onClick}>{buttonText}</button>
+    return <button className="accept-button bg-Asparagus my-2 mx-2" onClick={onClick}>{buttonText}</button>
 }
 
+function SideBySideComparison(props: { inputText: string, outputText: string, setInputText: (x: string) => void, setOutputText: (x: string) => void, scrollState: number, setScrollState: (x: number) => void }) {
+    const { inputText, outputText, setInputText, setOutputText, scrollState, setScrollState } = { ...props };
+    return (<div className="editor flex justify-evenly flex-1 min-h-[70vh] max-h-20 mt-4">
+        <SimpleDocumentTextBox textContent={inputText} scrollValue={scrollState} updateTextContent={setInputText} setScrollValue={setScrollState} editable />
+        <div className="divider mx-6" />
+        <SimpleDocumentTextBox textContent={outputText} scrollValue={scrollState} updateTextContent={setOutputText} setScrollValue={setScrollState} />
+    </div>)
+}
+
+function SingleEditorMode(props: { inputText: string, outputText: string, setInputText: (x: string) => void, setOutputText: (x: string) => void, scrollState: number, setScrollState: (x: number) => void }) {
+    const { inputText, outputText, setInputText, setOutputText, scrollState, setScrollState } = { ...props };
+    return (<div className="editor flex justify-evenly flex-1 min-h-[70vh] max-h-20 mt-4">
+        <DocumentTextBox textContent={inputText} scrollValue={scrollState} updateTextContent={setInputText} setScrollValue={setScrollState} editable />
+    </div>)
+}
 
 const defaultText = `Tarin crouched low behind the rock, breathing hard, his hand tight upon the hilt of his sword. The air hung heavy with the scent of chared wood and something else—something he couldn’t quiet name. Maybe it was fear, or maybe it was the weight of knowing he’d done something teribly, horibly wrong. Again. The others was counting on him. Jessa, with her bright, unwaivering optimism, who’d beleived in him even when she shouldn’t. Dorn, who had warned him from the start but followed anyways. They was out there now, somewhere beyond the ridgeline, probably fighting for there lifes. And Tarin? He was cowering. Like a coward.
 

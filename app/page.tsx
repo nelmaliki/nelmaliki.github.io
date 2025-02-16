@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel, CarouselSlide } from "./carousel";
+import { CarouselSlide } from "./carousel";
 
 const carouselSlides: CarouselSlide[] = [{
   img: "/carousel/carouselPlaceholder.png",
@@ -23,10 +23,10 @@ export default function Home() {
     <div className="items-center justify-items-center p-8 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 justify-around">
         <LandingPageDisplay />
-        <Carousel slides={carouselSlides} />
       </main>
     </div>
   );
+  //<Carousel slides={carouselSlides} />
 }
 
 function LandingPageDisplay(): React.ReactElement {
@@ -46,7 +46,7 @@ function LandingPageDisplay(): React.ReactElement {
     <strong className="text-TiffanyBlue text-3xl">
       Ab Initio.
     </strong>
-    <br/>
+    <br />
     <p className="text-3xl">
       This site was built by me to show off my side projects as I experiment with different technologies.
     </p>
