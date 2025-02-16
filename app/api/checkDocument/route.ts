@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export const CORRECT_DOCUMENT_ROUTE = "/api/correctDocument"
+export const CORRECT_DOCUMENT_ROUTE = "/api/checkDocument"
 
 const API_KEY = process.env.GEMINI_API_KEY; // Store your API key in .env
 
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
         if (API_KEY) {
             const genAI = new GoogleGenerativeAI(API_KEY);
-            const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+            const model = genAI.getGenerativeModel({ model: 'gemini-pro' , systemInstruction: CORRECT_DOCUMENT_SYSTEM_INSTRUCTIONS});
 
             const result = await model.generateContent(prompt);
             const response = result.response.text(); // Get text output
@@ -32,3 +32,5 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
+
+export const CORRECT_DOCUMENT_SYSTEM_INSTRUCTIONS = `You are a highly skilled grammar and punctuation editor. Your sole task is to receive text as input, correct any grammatical and punctuation errors, and return ONLY the corrected text. Make the minimum necessary changes to achieve grammatical correctness and maintain the original style and tone of the input text as much as possible. Do not add any additional commentary, explanations, or context. Only provide the corrected text. `;
