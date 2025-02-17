@@ -10,12 +10,14 @@ export default function Page() {
     const [waiting, setWaiting] = useState(false);
     const [singleEditorMode, setSingleEditorMode] = useState(false);
     const onClick = useCallback(async () => {
+        setWaiting(true);
         correctDocumentStreaming({
             request: {
                 prompt: inputText
             },
             onUpdate: setOutputText
         });
+        setWaiting(false);
     }, [setOutputText, inputText]);
     return (
         <div className="page-contents mx-6 flex flex-col">

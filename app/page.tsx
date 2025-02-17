@@ -1,22 +1,21 @@
 import React from "react";
-import { CarouselSlide } from "./carousel";
 
-const carouselSlides: CarouselSlide[] = [{
-  img: "/carousel/carouselPlaceholder.png",
-  altText: "test-1"
-},
-{
-  img: "/carousel/carouselPlaceholder.png",
-  altText: "test-2"
-},
-{
-  img: "/carousel/carouselPlaceholder.png",
-  altText: "test-3"
-},
-{
-  img: "/carousel/carouselPlaceholder.png",
-  altText: "test-4"
-}];
+// const carouselSlides: CarouselSlide[] = [{
+//   img: "/carousel/carouselPlaceholder.png",
+//   altText: "test-1"
+// },
+// {
+//   img: "/carousel/carouselPlaceholder.png",
+//   altText: "test-2"
+// },
+// {
+//   img: "/carousel/carouselPlaceholder.png",
+//   altText: "test-3"
+// },
+// {
+//   img: "/carousel/carouselPlaceholder.png",
+//   altText: "test-4"
+// }];
 
 export default function Home() {
   return (

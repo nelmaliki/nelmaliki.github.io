@@ -1,8 +1,6 @@
+import { CORRECT_DOCUMENT_SYSTEM_INSTRUCTIONS } from '@/app/types/routes';
+import { GenerateContentStreamResult, GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
-import { GoogleGenerativeAI, GenerateContentStreamResult } from '@google/generative-ai';
-import { CORRECT_DOCUMENT_SYSTEM_INSTRUCTIONS } from '../checkDocument/route';
-
-export const CORRECT_DOCUMENT_STREAMING_ROUTE = "/api/checkDocumentStreaming"
 
 const API_KEY = process.env.GEMINI_API_KEY; // Store your API key in .env
 

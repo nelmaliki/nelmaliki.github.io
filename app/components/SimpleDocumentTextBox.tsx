@@ -12,23 +12,23 @@ export interface SimpleDocumentTextBoxProps {
 
 export default function SimpleDocumentTextBox(props: SimpleDocumentTextBoxProps): React.ReactElement {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-
+    const { scrollValue, setScrollValue, updateTextContent } = { ...props }
     useEffect(() => {
         if (textareaRef.current) {
-            textareaRef.current.scrollTop = props.scrollValue;
+            textareaRef.current.scrollTop = scrollValue;
         }
-    }, [props.scrollValue]);
+    }, [scrollValue]);
 
     const onChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
         if (props.editable) {
-            props.updateTextContent(e.target.value);
+            updateTextContent(e.target.value);
         }
-    }, [props.updateTextContent]);
-    const onScroll: UIEventHandler<HTMLTextAreaElement> = useCallback((e) => {
+    }, [props.editable, updateTextContent]);
+    const onScroll: UIEventHandler<HTMLTextAreaElement> = useCallback(() => {
         if (textareaRef.current) {
-            props.setScrollValue(textareaRef.current.scrollTop);
+            setScrollValue(textareaRef.current.scrollTop);
         }
-    }, [props.setScrollValue]);
+    }, [setScrollValue]);
     return (
         <textarea
             ref={textareaRef}

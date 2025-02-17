@@ -18,17 +18,17 @@ export const TextDecoratorPlugin = Extension.create<TextDecoratorOptions>({
     },
 
     addProseMirrorPlugins() {
-        const { correctDocument } = this.options
+        //const { correctDocument } = this.options
 
         return [
             new Plugin({
                 key: new PluginKey('textdecorator'),
                 state: {
                     init(_: EditorStateConfig, editorState: EditorState) {
-                        return compareDocumentToCorrectedDocument(editorState.doc, correctDocument);
+                        return compareDocumentToCorrectedDocument(editorState.doc);
                     },
                     apply(transaction: Transaction, oldState: DecorationSet): DecorationSet {
-                        return transaction.docChanged ? compareDocumentToCorrectedDocument(transaction.doc, correctDocument) : oldState
+                        return transaction.docChanged ? compareDocumentToCorrectedDocument(transaction.doc) : oldState
                     },
                 },
                 props: {
@@ -45,10 +45,10 @@ export interface Result {
     message: string
     from: number
     to: number
-    fix?: Function
+    fix?: string
 }
 
-function compareDocumentToCorrectedDocument(doc: ProsemirrorNode, correctedDocument: string): DecorationSet {
+function compareDocumentToCorrectedDocument(doc: ProsemirrorNode): DecorationSet {
     const decorations: Decoration[] = []
 
     const results: Result[] = [

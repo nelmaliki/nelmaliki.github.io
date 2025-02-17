@@ -1,6 +1,6 @@
-import { CORRECT_DOCUMENT_ROUTE } from "../api/checkDocument/route";
-import { CORRECT_DOCUMENT_STREAMING_ROUTE } from "../api/checkDocumentStreaming/route";
+
 import { CorrectDocumentRequest, CorrectDocumentResponse, GeminiStreamingRequest } from "../types/api";
+import { CORRECT_DOCUMENT_ROUTE, CORRECT_DOCUMENT_STREAMING_ROUTE } from "../types/routes";
 
 export async function correctDocument(request: CorrectDocumentRequest): Promise<CorrectDocumentResponse> {
     const res = await fetch(CORRECT_DOCUMENT_ROUTE, {
