@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom/client';
  * @returns 
  */
 export function TextDecoration(props: { message: string }): React.ReactElement {
-    return <span>{props.message}</span>;
+    return <span className="bg-Asparagus">{props.message}</span>;
 }
 
 //to satisfy ProseMirror's interface, I have to give it a function that returns the dom element. 
