@@ -204,17 +204,3 @@ function tokenize(str: string) {
     return str.match(TOKEN_REGEX) || [];
 }
 
-/**
- * Trims the separator from the token
- * Each token is a contiguous group of non‑whitespace characters along with any trailing whitespace.
- *
- * For example, "cat " becomes "cat"
- *
- * @param {string} str - The input string.
- * @returns {Array<string>} An array of tokens.
- */
-function trimTokenSeparator(str: string) {
-    return str.replace(TOKEN_REGEX, "");
-
-}
-
