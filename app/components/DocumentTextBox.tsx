@@ -23,7 +23,8 @@ const defaultExtensions = [Bold, Strike, History, Blockquote, Document, Heading,
 
 export default function CombinedDocumentTextBox(props: CombinedDocumentTextBoxProps): React.ReactElement {
     const content = props.textContent;
-    const textDecoratorPlugin = React.useMemo(() => TextDecoratorPlugin.configure(), [content, props.correctedTextContent]);
+    const correctedTextContent = props.correctedTextContent;
+    const textDecoratorPlugin = React.useMemo(() => TextDecoratorPlugin.configure({ correctDocument: correctedTextContent }), [correctedTextContent]);
     const extensions = [textDecoratorPlugin, ...defaultExtensions];
     const editor = useEditor({ extensions, content, immediatelyRender: false });
 

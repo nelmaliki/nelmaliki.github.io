@@ -11,4 +11,6 @@ then for local development run `npx run dev` from the root directory.
 
 To host locally - `npm run build` then `npx serve out`
 
-For the LLM side of things to work, you will need to create a .env.local file and include this in it: GEMINI_API_KEY=YOUR_KEY_HERE
+For the LLM side of things to work, you will need to create a .env.local file and include the following:
+GEMINI_API_KEY=YOUR_KEY_HERE
+BUILD_ENV="DEV"
