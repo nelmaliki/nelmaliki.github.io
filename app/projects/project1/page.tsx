@@ -5,7 +5,11 @@ import { correctDocumentStreaming } from '@/app/lib/DocumentLLMClient';
 import React, { useCallback, useState } from 'react';
 export default function Page() {
     const [inputText, setInputText] = useState(defaultText);
-    const [outputText, setOutputText] = useState("Click the button to see edits!");
+    const userChangedInputText = (newText: string) => {
+        setInputText(newText);
+        setOutputText("");
+    }
+    const [outputText, setOutputText] = useState("");
 
     const [waiting, setWaiting] = useState(false);
     const [singleEditorMode, setSingleEditorMode] = useState(false);
@@ -28,11 +32,11 @@ export default function Page() {
             {singleEditorMode ?
                 <SingleEditorMode inputText={inputText}
                     outputText={outputText}
-                    setInputText={setInputText} /> :
+                    setInputText={userChangedInputText} /> :
                 <SideBySideComparison
                     inputText={inputText}
                     outputText={outputText}
-                    setInputText={setInputText}
+                    setInputText={userChangedInputText}
                 />}
         </div>
     );
