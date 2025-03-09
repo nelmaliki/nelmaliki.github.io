@@ -16,6 +16,8 @@ export type NodeDiff = Partial<NodeValueDiff> & {
 }
 
 interface NodeValueDiff {
+    stringStart: number,
+    stringEnd: number,
     changeValue: string,
     added?: boolean;
     removed?: boolean;
@@ -126,7 +128,9 @@ function diffWords2(oldStr: string, newStr: string): NodeValueDiff[] {
         const nodeDiff: NodeValueDiff = {
             changeValue: diff.value,
             added: diff.added || false,
-            removed: diff.removed || false
+            removed: diff.removed || false,
+            stringStart: currentPos,
+            stringEnd: currentPos + diff.value.length
         };
         
         // Add to result array
@@ -150,6 +154,7 @@ function diffWords2(oldStr: string, newStr: string): NodeValueDiff[] {
  * @param {string} newStr - The updated string.
  * @returns {Array<NodeValueDiff>} An array of diff segments
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function customDiffWords(oldStr: string, newStr: string): NodeValueDiff[] {
     const oldTokens = tokenize(oldStr);
     const newTokens = tokenize(newStr);
