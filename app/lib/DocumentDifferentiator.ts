@@ -8,7 +8,7 @@
  *   - unchanged: true if the node is unchanged.
  */
 import { DOMParser as ProseMirrorDOMParser, Node as ProseMirrorNode, Schema as ProseMirrorSchema } from "prosemirror-model";
-import { diffWords } from 'diff';
+import { diffWords, diffWordsWithSpace } from 'diff';
 
 export type NodeDiff = Partial<NodeValueDiff> & {
     value: ProseMirrorNode;
@@ -119,29 +119,43 @@ function diffWords2(oldStr: string, newStr: string): NodeValueDiff[] {
     //the diff library returns an array of changes but does not include the index of the change
     //we are going to index by the token position in the original string
     const diffs = diffWords(oldStr, newStr);
-    
-    let currentPos = 0;
+
+    let currentPos = 1;
     const result: NodeValueDiff[] = [];
-    
+
     for (const diff of diffs) {
-        // Create a NodeValueDiff object for each change
-        const nodeDiff: NodeValueDiff = {
-            changeValue: diff.value,
-            added: diff.added || false,
-            removed: diff.removed || false,
-            stringStart: currentPos,
-            stringEnd: currentPos + diff.value.length
-        };
-        
-        // Add to result array
-        result.push(nodeDiff);
-        
-        // Only advance position for non-added segments (original text)
-        if (!diff.added) {
+        if (diff.added) {
+            //additions dont count because they are not part of the original text
+            const diffSize = diff.value.length;
+            // Create a NodeValueDiff object for each change
+            const nodeDiff: NodeValueDiff = {
+                changeValue: diff.value,
+                added: diff.added,
+                removed: diff.removed,
+                stringStart: currentPos,
+                stringEnd: currentPos
+            };
+            result.push(nodeDiff);
+            currentPos += diffSize;
+        }
+        else if (diff.removed) {
+            //additions dont count because they are not part of the original text
+            const diffSize = diff.value.length;
+            // Create a NodeValueDiff object for each change
+            const nodeDiff: NodeValueDiff = {
+                changeValue: diff.value,
+                added: diff.added,
+                removed: diff.removed,
+                stringStart: currentPos,
+                stringEnd: currentPos + diffSize
+            };
+            result.push(nodeDiff);
+            //currentPos += diffSize;
+        }
+        else {
             currentPos += diff.value.length;
         }
     }
-    
     return result;
 }
 
