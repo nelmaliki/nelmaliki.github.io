@@ -8,6 +8,7 @@
  *   - unchanged: true if the node is unchanged.
  */
 import { DOMParser as ProseMirrorDOMParser, Node as ProseMirrorNode, Schema as ProseMirrorSchema } from "prosemirror-model";
+import { diffWords } from 'diff';
 
 export type NodeDiff = Partial<NodeValueDiff> & {
     value: ProseMirrorNode;
@@ -15,8 +16,6 @@ export type NodeDiff = Partial<NodeValueDiff> & {
 }
 
 interface NodeValueDiff {
-    stringStart: number,
-    stringEnd: number,
     changeValue: string,
     added?: boolean;
     removed?: boolean;
@@ -63,7 +62,7 @@ function diffNode(source: ProseMirrorNode, target: ProseMirrorNode, nodePos: num
         if (childrenAreSame) {
             // If both nodes are text nodes, perform a text diff.
             if (sourceChild.text && targetChild.text) {
-                const textDiffs: NodeValueDiff[] = diffWords(sourceChild.text, targetChild.text);
+                const textDiffs: NodeValueDiff[] = diffWords2(sourceChild.text, targetChild.text);
                 const nodeDiffs: NodeDiff[] = textDiffs.map(textDiff => ({ ...textDiff, nodePos, value: sourceChild }));
                 diffs.push(...nodeDiffs);
             }
@@ -112,6 +111,37 @@ function compareAttrs(attrs1: { [key: string]: any }, attrs2: { [key: string]: a
 
 
 /**
+ * diff wrapper around Myers' Diff algorithm from diff library
+ */
+function diffWords2(oldStr: string, newStr: string): NodeValueDiff[] {
+    //the diff library returns an array of changes but does not include the index of the change
+    //we are going to index by the token position in the original string
+    const diffs = diffWords(oldStr, newStr);
+    
+    let currentPos = 0;
+    const result: NodeValueDiff[] = [];
+    
+    for (const diff of diffs) {
+        // Create a NodeValueDiff object for each change
+        const nodeDiff: NodeValueDiff = {
+            changeValue: diff.value,
+            added: diff.added || false,
+            removed: diff.removed || false
+        };
+        
+        // Add to result array
+        result.push(nodeDiff);
+        
+        // Only advance position for non-added segments (original text)
+        if (!diff.added) {
+            currentPos += diff.value.length;
+        }
+    }
+    
+    return result;
+}
+
+/**
  * A custom diffWords implementation that compares two strings on a word level.
  * It tokenizes each string (preserving trailing whitespace) and computes a longest
  * common subsequence (LCS) to determine which tokens have been added or removed.
@@ -120,7 +150,7 @@ function compareAttrs(attrs1: { [key: string]: any }, attrs2: { [key: string]: a
  * @param {string} newStr - The updated string.
  * @returns {Array<NodeValueDiff>} An array of diff segments
  */
-function diffWords(oldStr: string, newStr: string): NodeValueDiff[] {
+function customDiffWords(oldStr: string, newStr: string): NodeValueDiff[] {
     const oldTokens = tokenize(oldStr);
     const newTokens = tokenize(newStr);
 

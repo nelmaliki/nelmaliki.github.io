@@ -1,7 +1,7 @@
 'use client'
 import CombinedDocumentTextBox from '@/app/components/DocumentTextBox';
 import SimpleDocumentTextBox from '@/app/components/SimpleDocumentTextBox';
-import { correctDocumentStreaming } from '@/app/lib/correctDocumentClient';
+import { correctDocumentStreaming } from '@/app/lib/DocumentLLMClient';
 import React, { useCallback, useState } from 'react';
 export default function Page() {
     const [inputText, setInputText] = useState(defaultText);

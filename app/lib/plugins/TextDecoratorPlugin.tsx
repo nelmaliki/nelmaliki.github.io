@@ -2,7 +2,7 @@ import { Extension } from '@tiptap/core'
 import { Node as ProsemirrorNode } from '@tiptap/pm/model'
 import { EditorState, EditorStateConfig, Plugin, PluginKey, Transaction } from '@tiptap/pm/state'
 import { Decoration, DecorationSet, DecorationSource } from '@tiptap/pm/view'
-import { diffDocs, NodeDiff } from '../diffDocuments'
+import { diffDocs, NodeDiff } from '../DocumentDifferentiator'
 import { renderTextDecoration } from './TextDecoration'
 
 export interface TextDecoratorOptions {
