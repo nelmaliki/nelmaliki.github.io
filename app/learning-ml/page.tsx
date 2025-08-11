@@ -8,13 +8,12 @@ export default function LearningMLPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-8">
       <h1 className="text-4xl font-bold text-TiffanyBlue mb-8">
-        Learning Machine Learning Note: This page is in active development.
-        These posts are just for testing.
+        Learning Machine Learning
       </h1>
 
       <p className="text-xl text-amber-50 mb-8">
         Follow my journey as I explore the fascinating world of machine
-        learning, from fundamentals to advanced concepts.
+        learning.
       </p>
 
       {posts.length === 0 ? (
