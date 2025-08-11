@@ -10,7 +10,8 @@ export interface BlogPost {
   content: string;
 }
 
-const postsDirectory = path.join(process.cwd(), "public", "blog-posts-mock");
+//change this to blog-posts-mock to use the test blog posts
+const postsDirectory = path.join(process.cwd(), "public", "blog-posts");
 
 export function getAllBlogPosts(): BlogPost[] {
   // Get file names under /public/blog-posts

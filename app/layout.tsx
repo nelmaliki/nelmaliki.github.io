@@ -23,16 +23,21 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} toolbar`}>
         <NavBar />
-        <main className="bg-DavyGrey min-h-screen text-amber-50">
+        <main className="bg-DavyGrey min-h-screen">
           {children}
-          <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center flex-1 bottom-3 w-full my-4">
+          <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center flex-1 bottom-3 w-full my-4 text-amber-50">
             <a
               className="flex items-center gap-2 hover:text-NaplesYellow"
               href="https://www.linkedin.com/in/nour-elmaliki-527637195/"
               target="_blank"
               rel="noopener noreferrer external"
             >
-              <Image src="/icons/linkedinLogo.svg" alt="Icon" width={32} height={32} />
+              <Image
+                src="/icons/linkedinLogo.svg"
+                alt="Icon"
+                width={32}
+                height={32}
+              />
               LinkedIn
             </a>
             <a
@@ -41,7 +46,12 @@ export default function RootLayout({
               target="_blank"
               rel="noopener noreferrer external"
             >
-              <Image src="/icons/githubLogo.svg" alt="Icon" width={32} height={32} />
+              <Image
+                src="/icons/githubLogo.svg"
+                alt="Icon"
+                width={32}
+                height={32}
+              />
               Github
             </a>
           </footer>

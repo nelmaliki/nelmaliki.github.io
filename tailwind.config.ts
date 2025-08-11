@@ -11,15 +11,15 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        transparent: 'transparent',
-        current: 'currentColor',
+        transparent: "transparent",
+        current: "currentColor",
         TiffanyBlue: "#99DDC8",
-        Onyx:"#34383B", 
+        Onyx: "#34383B",
         DavyGrey: "#4B4E51",
         NaplesYellow: "#F2CD60",
-        Asparagus: "#659B5E"
+        Asparagus: "#659B5E",
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 } satisfies Config;

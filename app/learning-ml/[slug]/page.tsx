@@ -4,6 +4,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -18,6 +20,35 @@ export async function generateStaticParams() {
   }));
 }
 
+const CodeBlock = ({ inline, className, children, ...props }: any) => {
+  const match = /language-(\w+)/.exec(className || "");
+  const language = match ? match[1] : "text";
+  return !inline ? (
+    <SyntaxHighlighter
+      style={vscDarkPlus}
+      language={language}
+      PreTag="div"
+      className="rounded-lg my-6 shadow-lg border border-gray-600"
+      showLineNumbers={true}
+      lineNumberStyle={{ color: "#6b7280", fontSize: "0.875rem" }}
+      customStyle={{
+        margin: 0,
+        borderRadius: "0.5rem",
+        background: "#111827",
+        fontSize: "0.875rem",
+        lineHeight: "1.5",
+      }}
+      {...props}
+    >
+      {String(children).replace(/\n$/, "")}
+    </SyntaxHighlighter>
+  ) : (
+    <code className={className} {...props}>
+      {children}
+    </code>
+  );
+};
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
@@ -27,7 +58,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="max-w-4xl mx-auto px-6 py-8 text-amber-50">
       <Link
         href="/learning-ml"
         className="inline-flex items-center text-TiffanyBlue hover:text-NaplesYellow transition-colors duration-200 mb-8"
@@ -71,21 +102,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div
           className="prose prose-invert prose-lg max-w-none
           prose-headings:text-TiffanyBlue
-          prose-h1:text-3xl
-          prose-h2:text-2xl
-          prose-h3:text-xl
-          prose-p:text-amber-50
           prose-a:text-NaplesYellow hover:prose-a:text-TiffanyBlue
-          prose-strong:text-amber-50
-          prose-code:text-NaplesYellow prose-code:bg-Onyx prose-code:px-2 prose-code:py-1 prose-code:rounded
-          prose-pre:bg-Onyx prose-pre:border prose-pre:border-gray-700
-          prose-blockquote:border-l-NaplesYellow prose-blockquote:text-gray-300
-          prose-ul:text-amber-50
-          prose-ol:text-amber-50
-          prose-li:text-amber-50
+          prose-code:text-NaplesYellow prose-code:bg-gray-800 prose-code:px-2 prose-code:py-1 prose-code:rounded
+          prose-blockquote:border-l-NaplesYellow
         "
         >
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              code: CodeBlock,
+            }}
+          >
             {post.content}
           </ReactMarkdown>
         </div>
