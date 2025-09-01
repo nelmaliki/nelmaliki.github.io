@@ -99,23 +99,39 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
         </header>
 
-        <div
-          className="prose prose-invert prose-lg max-w-none
-          prose-headings:text-TiffanyBlue
-          prose-a:text-NaplesYellow hover:prose-a:text-TiffanyBlue
-          prose-code:text-NaplesYellow prose-code:bg-gray-800 prose-code:px-2 prose-code:py-1 prose-code:rounded
-          prose-blockquote:border-l-NaplesYellow
-        "
-        >
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={{
-              code: CodeBlock,
-            }}
+        {post.contentType === "markdown" ? (
+          <div
+            className="prose prose-invert prose-lg max-w-none
+            prose-headings:text-TiffanyBlue
+            prose-a:text-NaplesYellow hover:prose-a:text-TiffanyBlue
+            prose-code:text-NaplesYellow prose-code:bg-gray-800 prose-code:px-2 prose-code:py-1 prose-code:rounded
+            prose-blockquote:border-l-NaplesYellow
+          "
           >
-            {post.content}
-          </ReactMarkdown>
-        </div>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                code: CodeBlock,
+              }}
+            >
+              {post.content}
+            </ReactMarkdown>
+          </div>
+        ) : post.contentType === "html" && post.htmlPath ? (
+          <div className="w-full">
+            <iframe
+              src={post.htmlPath}
+              className="w-full border-0 rounded-lg"
+              style={{
+                minHeight: "800px",
+                height: "100vh",
+                maxHeight: "1200px",
+              }}
+              sandbox="allow-scripts allow-same-origin allow-forms"
+              title={post.title}
+            />
+          </div>
+        ) : null}
       </article>
     </div>
   );
